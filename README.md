@@ -3,6 +3,7 @@
 [![tests](https://github.com/florianm101/black-scholes-spy/actions/workflows/tests.yml/badge.svg)](https://github.com/florianm101/black-scholes-spy/actions/workflows/tests.yml)
 [![python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![notebook](https://img.shields.io/badge/notebook-view-orange)](https://github.com/florianm101/black-scholes-spy/blob/main/notebooks/black_scholes_spy.ipynb)
 
 An implementation and empirical stress-test of the Black–Scholes–Merton model on real S&P 500 (SPY) data: closed-form pricing, analytical Greeks, implied volatility inversion, three independent pricing methods shown to converge, and a fitted implied volatility surface that demonstrates exactly where the model's assumptions fail.
 
