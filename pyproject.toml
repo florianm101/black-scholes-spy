@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bsm-spy"
+version = "1.0.0"
+description = "Black-Scholes-Merton pricing, Greeks, implied volatility and vol surfaces, applied to SPY"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=2.0",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+data = ["yfinance>=0.2.40"]
+notebook = ["jupyter>=1.0", "ipywidgets>=8.0"]
+dev = ["pytest>=7.4", "pytest-cov>=4.1", "ruff>=0.4", "nbconvert>=7.0"]
+
+[tool.setuptools.packages.find]
+include = ["bsm*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
