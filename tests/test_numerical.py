@@ -1,8 +1,7 @@
 """Tests that the numerical methods converge to the closed form.
 
 If a tree or Monte Carlo estimator cannot reproduce Black-Scholes on a
-European vanilla -- the one contract where an exact answer exists -- it cannot
-be trusted on the exotics where no exact answer does.
+European vanilla it cannot be trusted on the exotics where no exact answer does.
 """
 
 import numpy as np

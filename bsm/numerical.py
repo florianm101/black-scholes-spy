@@ -4,7 +4,7 @@ The closed form in `analytical.py` exists only for European vanillas under
 geometric Brownian motion. These methods generalise: trees handle early
 exercise, Monte Carlo handles path dependence and high dimensionality. The
 European vanilla is the one contract all three price, which makes it the
-natural regression test -- if a tree or an MC estimator does not converge to
+natural regression test, if a tree or an MC estimator does not converge to
 Black-Scholes here, it is wrong everywhere else too.
 """
 

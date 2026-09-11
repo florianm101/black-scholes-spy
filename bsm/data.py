@@ -3,10 +3,9 @@
 Every loader here attempts live yfinance data first and falls back to
 synthetic-but-realistic data if the network is unavailable, so the notebook and
 test suite always run end to end. The `live` flag on each return value records
-which path was taken -- never present offline results as if they were market
-data.
+which path was taken.
 
-Caveats on the live path, which are real and worth stating in any writeup:
+Caveats on the live path, which are worth stating:
 yfinance option quotes are delayed and not synchronised with the spot price;
 the risk-free rate here is a single 13-week bill yield rather than a
 term-matched curve; the dividend yield is a trailing-twelve-month
