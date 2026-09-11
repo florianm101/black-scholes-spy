@@ -22,6 +22,10 @@ The point of the project is not that Black–Scholes prices options. It's that *
 | Narrative analysis | `notebooks/black_scholes_spy.ipynb` | The full write-up: theory, interactive dials, convergence study, vol surface, fat-tail analysis |
 | Test suite | `tests/` | 112 tests covering pricing identities, Greek accuracy, solver behaviour and convergence |
 
+![SPY implied volatility surface](docs/img/vol_surface.png)
+
+*Implied vols from filtered SPY option chains. Flat is what Black–Scholes predicts; the downward slope in strike is what the market actually prices.*
+
 ---
 
 ## Quick start
@@ -68,8 +72,6 @@ Analytical results are worth nothing unless they're checked, so the model is val
 
 Plus convergence of the numerical methods to the closed form, and the classic early-exercise results (an American call on a non-dividend payer equals its European counterpart; an American put strictly exceeds it).
 
-**112 passed**
-
 
 ---
 
@@ -89,7 +91,13 @@ Antithetic variates cut the Monte Carlo standard error by roughly **1.4×** at e
 
 One precision worth flagging, since the folk description gets it wrong. For an **equity index** the skew term dominates, so implied vol is close to monotonically *decreasing* in strike over the liquid range: a smirk, not a symmetric smile. Both wings sitting above ATM is a currency-market phenomenon. What survives for indices is the convexity.
 
-**Fat tails.** SPY's own daily log returns are tested against normality (excess kurtosis, Jarque–Bera, tail-exceedance counts vs. theoretical frequencies, Q–Q plot). Under normality a daily move beyond 4σ should appear roughly once every ~63 years of trading. It doesn't work out that way.
+The notebook also shows a small discontinuity near K/S = 1.00, where the surface switches from put-derived to call-derived implied vols. This is consistent with the documented limitation that a single 13-week bill yield and trailing dividend estimate do not reproduce the forward used by the option market. Backing the forward out of put-call parity per expiry is a natural fix.
+
+**Fat tails.** SPY's own daily log returns are tested against normality (excess kurtosis, Jarque–Bera, tail-exceedance counts vs. theoretical frequencies, Q–Q plot). In the live two-year sample, moves beyond 4σ occur far more often than a normal distribution predicts. Under normality, a daily move beyond 4σ should appear roughly once every ~63 years of trading.
+
+![Q-Q plot of SPY daily returns against a normal](docs/img/qq_plot.png)
+
+*The S-shape at both ends is the fat-tail evidence: observed returns run further from the mean than the straight line a normal distribution would produce.*
 
 ---
 
@@ -108,7 +116,7 @@ One precision worth flagging, since the folk description gets it wrong. For an *
 ## Extensions
 
 Roughly ascending in difficulty:
-
+- **Forward from put-call parity.** Back out the implied forward per expiry, $F = K + e^{rT}(C - P)$, rather than assuming one from a bill yield and a trailing dividend estimate. This removes the put/call discontinuity at the money.
 - **American options.** Supported via `binomial_price(..., american=True)`; quantify the early-exercise premium across moneyness and dividend yield.
 - **Local volatility** (Dupire, 1994). A $\sigma(S,t)$ that reprices the whole surface exactly.
 - **Stochastic volatility** (Heston, 1993). Mean-reverting variance correlated with spot; generates skew endogenously. Calibrating it to the surface built here is the natural next step.
